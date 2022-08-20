@@ -16,7 +16,7 @@ export const config = {
     alert: 'Tag__alert'
   },
   strapi: {
-    production: 'http://strapi.matadealcantara.com'
+    production: 'https://strapi.matadealcantara.com'
   },
   googleApi: {
     url: `https://www.googleapis.com/books/v1/volumes?q=isbn:`,
