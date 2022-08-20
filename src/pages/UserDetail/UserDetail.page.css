@@ -1,0 +1,36 @@
+.Upd__btn {
+  padding: 8px 16px;
+  color: white;
+  font-size: 16px;
+  cursor: pointer;
+  border-radius: 6px;
+}
+.Upd__btn--cancel:hover {
+  background-color: #d0455a;
+}
+
+.Upd__btn--success:hover {
+  background-color: #2ba443;
+}
+.Upd__content {
+  display: grid;
+  width: 50vw;
+}
+.Upd__content-btn {
+  display: flex;
+  flex-direction: row;
+  justify-content: space-between;
+  gap: 64px;
+  margin-bottom: 32px;
+}
+
+.Upd__warning-zone {
+  border-top: 1px solid #d9d9d9;
+  padding-top: 32px;
+}
+.Upd__table {
+  display: flex;
+  flex-direction: row;
+  padding: 16px;
+  justify-content: space-between;
+}

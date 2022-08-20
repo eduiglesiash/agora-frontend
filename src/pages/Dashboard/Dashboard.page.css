@@ -1,0 +1,24 @@
+.Dashboard__info {
+    display: flex;
+    flex-direction: column;
+    gap: 8px;
+    flex-wrap: nowrap;
+    align-content: center;
+    justify-content: space-between;
+    margin-bottom: 16px;
+}
+.Dashboard__card{
+        background-color: white;
+        border: 1px solid #00000010;
+        padding: 16px;
+}
+
+
+@media all and (min-width: 768px) {
+    .Dashboard__info {
+        flex-direction: row;
+    }
+    .Dashboard__info > * {
+        width: 25%;
+    }
+}

@@ -1,0 +1,26 @@
+.Login {
+    display: flex;
+    flex-direction: column;
+    gap: 24px;
+    justify-content: center;
+    align-items: center;
+    z-index: -1;
+    margin-left: -165px;
+}
+
+.Login__form{
+    padding: 64px 32px;
+    background-color: white;
+    border: 2px solid #eee;
+    transition: all .3s ease;
+    width: 768px;
+    
+}
+
+.Login__group {
+    margin-bottom: 24px;
+}
+
+.Login__img {
+    width: 200px;
+}

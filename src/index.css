@@ -1,0 +1,545 @@
+* {
+  box-sizing: border-box;
+}
+
+body {
+  margin: 0;
+  font-family: "Open Sans", -apple-system, BlinkMacSystemFont, "Segoe UI", "Roboto", "Oxygen", "Ubuntu", "Cantarell",
+    "Fira Sans", "Droid Sans", "Helvetica Neue", sans-serif;
+  font-weight: 400;
+  -webkit-font-smoothing: antialiased;
+  -moz-osx-font-smoothing: grayscale;
+  background-color: #f9fafb;
+}
+h1,
+h2,
+h3,
+h4,
+h5,
+h6 {
+  font-family: "Poppins", -apple-system, BlinkMacSystemFont, "Segoe UI", "Roboto", "Oxygen", "Ubuntu", "Cantarell",
+    "Fira Sans", "Droid Sans", "Helvetica Neue", sans-serif;
+  margin: 0;
+  font-weight: 700;
+}
+ul {
+  margin: 0;
+  padding: 0;
+  list-style: none;
+}
+img {
+  width: 100%;
+}
+small {
+  display: block;
+}
+code {
+  font-family: source-code-pro, Menlo, Monaco, Consolas, "Courier New", monospace;
+}
+
+p {
+  margin: 0;
+  line-height: 1.5;
+}
+
+a {
+  text-decoration: none;
+}
+
+button {
+  cursor: pointer;
+  border: none;
+  padding: 0;
+  background-color: transparent;
+  width: 100%;
+}
+button:focus {
+  text-decoration: underline;
+}
+
+fieldset {
+  padding: 0;
+  margin: 0;
+  border: 0;
+}
+
+input {
+  /*reset*/
+  border: none;
+  padding: 12px 8px;
+  /* background-color: #E3E4E580; */
+  color: black;
+  border-radius: 6px;
+  border: 1px solid #2d2d2d;
+  font-size: 18px;
+  width: 100%;
+  margin-bottom: 20px;
+}
+input[type="radio"] {
+  width: auto;
+  margin: 0;
+}
+input:focus {
+  outline: 0;
+  border-color: #0071ff;
+}
+label {
+  display: block;
+  font-size: 16px;
+  margin-bottom: 8px;
+  font-weight: 700;
+  text-align: left;
+}
+label span {
+  display: inline-block;
+  margin-bottom: 8px;
+}
+textarea {
+  font-family: "Noto Sans Display", -apple-system, BlinkMacSystemFont, "Segoe UI", "Roboto", "Oxygen", "Ubuntu",
+    "Cantarell", "Fira Sans", "Droid Sans", "Helvetica Neue", sans-serif;
+  resize: none;
+  width: 100%;
+}
+
+/* Estilos comunes */
+
+.sr-only {
+  position: absolute;
+  width: 1px;
+  height: 1px;
+  padding: 0;
+  margin: -1px;
+  overflow: hidden;
+  clip: rect(0, 0, 0, 0);
+  white-space: nowrap;
+  border-width: 0;
+}
+
+/* Overrides */
+.ReactModal__Body--open {
+  overflow: hidden;
+}
+
+/* AgoraStyles  */
+
+/* paddings */
+.a-p-16 {
+  padding: 16px;
+}
+
+/* Text */
+
+.a-text-center {
+  text-align: center;
+}
+
+/* flex */
+.a-flex {
+  display: flex;
+}
+.a-flex-row {
+  flex-direction: row;
+}
+.a-flex-column {
+  flex-direction: column;
+}
+.a-flex-sBetween {
+  justify-content: space-between;
+}
+.a-flex-center {
+  justify-content: center;
+}
+.a-flex-basis-10 {
+  flex-basis: 10%;
+}
+.a-flex-basis-15 {
+  flex-basis: 15%;
+}
+.a-flex-basis-25 {
+  flex-basis: 25%;
+}
+.a-flex-basis-50 {
+  flex-basis: 50%;
+}
+.a-flex-basis-75 {
+  flex-basis: 75%;
+}
+.a-flex-basis-100 {
+  flex-basis: 100%;
+}
+.a-flex-shrink-1 {
+  flex-shrink: 1;
+}
+.a-flex-grow-1 {
+  flex-grow: 1;
+}
+.a-flex-align-self-center {
+  align-self: center;
+}
+.a-flex-align-item {
+  align-items: center;
+}
+.a-flex-end {
+  justify-content: flex-end;
+}
+.a-flex-gap16 {
+  gap: 16px;
+}
+
+/* buttons */
+.a-btn__icon {
+  width: 50px;
+  height: 50px;
+  border-radius: 6px;
+  border: 2px solid transparent;
+}
+
+.a-btn__icon:hover {
+  border: 2px solid #b0b9c1;
+}
+.a-btn__add {
+  background-color: #5aa469;
+  border: 2px solid #5aa469;
+  border-radius: 50%;
+  bottom: 20px;
+  height: 46px;
+  position: fixed;
+  right: 20px;
+  transition: background-color 0.3s;
+  width: 46px;
+  z-index: 1;
+}
+.a-btn__add::before,
+.a-btn__add::after {
+  background-color: #efefef;
+  content: "";
+  height: 2px;
+  left: 50%;
+  position: absolute;
+  top: 50%;
+  transform: translate(-50%, -50%);
+  transition: background-color 0.3s;
+  width: 20px;
+}
+.a-btn__add::after {
+  transform: translate(-50%, -50%) rotate(90deg);
+}
+.a-btn__add:hover {
+  background-color: #efefef;
+}
+.a-btn__add:hover::before,
+.a-btn__add:hover::after {
+  background-color: #5aa469;
+}
+.a-btn__add.a-btn--blue {
+  background-color: #1353a7;
+  border: 2px solid #1353a7;
+}
+
+.a-cta {
+  background-color: #5aa469;
+  border: 2px solid #5aa469;
+  border-radius: 6px;
+  color: #ffffff;
+  font-weight: 700;
+  padding: 8px 10px;
+  transition: background-color 0.3s, color 0.3s;
+}
+.a-cta:hover {
+  background-color: #ffffff;
+  color: #5aa469;
+}
+
+.a-cta--disabled {
+  background-color: #202124;
+  border-color: #202124;
+  color: #ffffff;
+  pointer-events: none;
+}
+
+.a-cta--blue {
+  background-color: #0071ff;
+  border: 2px solid #0071ff;
+}
+.a-cta--blue:hover {
+  background-color: #ffffff;
+  color: #0071ff;
+}
+
+.a-cta--red {
+  background-color: #d35d6e;
+  border: 2px solid #d35d6e;
+}
+.a-cta--red:hover {
+  background-color: #ffffff;
+  color: #d35d6e;
+}
+
+/* fonts */
+.a-fs-18 {
+  font-size: 18px;
+}
+.a-fs-24 {
+  font-size: 24px;
+}
+.a-fs-36 {
+  font-size: 36px;
+}
+
+/* line height  */
+
+.a-lh-2 {
+  line-height: 2;
+}
+
+/* font-weight  */
+
+.a-fw-700 {
+  font-weight: 700;
+}
+
+/* layout */
+.a-block {
+  display: block;
+}
+
+/* margin */
+
+.a-margin-top-16 {
+  margin-top: 16px;
+}
+
+.a-margin-right-16 {
+  margin-right: 16px;
+}
+.a-margin-bottom-16 {
+  margin-bottom: 16px;
+}
+
+.a-margin-bottom-16 {
+  margin-bottom: 16px;
+}
+
+/* colors */
+
+.a-green {
+  color: #5aa469;
+}
+.a-red {
+  color: #d35d6e;
+}
+.a-yellow {
+  color: #f8d49d;
+}
+.a-purple {
+  color: #6c5070;
+}
+.a-grey {
+  color: #efefef;
+}
+.a-blue {
+  color: #0071ff;
+}
+.a-primary {
+  color: #202124;
+}
+
+.a-bk-green {
+  background-color: #5aa469;
+}
+.a-bk-red {
+  background-color: #d35d6e;
+}
+.a-bk-yellow {
+  background-color: #f8d49d;
+}
+.a-bk-purple {
+  background-color: #6c5070;
+}
+.a-bk-grey {
+  background-color: #efefef;
+}
+.a-bk-blue {
+  background-color: #051e34;
+}
+
+/* BUTTON */
+.a-btn__action {
+  padding: 8px 24px;
+  font-size: 18px;
+  border-radius: 6px;
+  border: 2px solid #1353a7;
+  color: #1353a7;
+  background-color: transparent;
+  border: 2px solid #1353a7;
+  transition: all 1s cubic-bezier(0.075, 0.82, 0.165, 1);
+}
+.a-btn__action:hover {
+  color: white;
+  background-color: #1353a7;
+}
+.a-btn__cancel {
+  padding: 8px 24px;
+  color: #d35d6e;
+  font-size: 18px;
+  border-radius: 6px;
+  background-color: transparent;
+  transition: all 1s cubic-bezier(0.075, 0.82, 0.165, 1);
+}
+.a-btn__cancel:hover {
+  color: white;
+  background-color: #d35d6e;
+  transition: all 1s cubic-bezier(0.075, 0.82, 0.165, 1);
+}
+.a-btn__delete {
+  margin: 0 auto;
+  padding: 8px 24px;
+  color: #ce2c44;
+  border: 2px solid #ce2c44;
+  width: 60%;
+  font-size: 18px;
+  border-radius: 6px;
+  background-color: transparent;
+}
+.a-btn__delete:hover {
+  color: white;
+  background-color: #ce2c44;
+}
+
+/* Box Shadow */
+
+.a-box-shadow {
+  box-shadow: 0 4px 16px rgb(0 0 0 / 8%);
+}
+
+/* Form  */
+.a-form__legend {
+  margin-bottom: 24px;
+  font-size: 28px;
+  font-weight: bold;
+}
+.a-form__legend-radio {
+  margin: 0px;
+  font-size: 20px;
+  font-weight: bold;
+}
+.a-form__success {
+  border: 2px solid #5aa469;
+  border-radius: 8px;
+  color: #5aa469;
+  font-weight: bold;
+}
+.a-form__errorInput {
+  border: 2px solid #ce2c44;
+  border-radius: 8px;
+  color: #ce2c44;
+  font-weight: bold;
+}
+.a-form__errorText {
+  color: #ce2c44;
+  font-weight: bold;
+  text-align: center;
+}
+.a-form__radio {
+  display: flex;
+  flex-direction: row;
+  gap: 8px;
+  align-items: center;
+  margin-bottom: 8px;
+  cursor: pointer;
+  padding-left: 16px;
+  flex: 1 auto;
+}
+.a-form__radio-text {
+  margin: 0;
+  font-weight: 400;
+}
+
+/* Animations */
+.a-fade-in {
+  opacity: 1;
+  animation: fadeIn 0.5s linear;
+}
+
+/* Visually hidden */
+.a-visually-hidden {
+  clip: rect(0 0 0 0);
+  clip-path: inset(50%);
+  height: 1px;
+  overflow: hidden;
+  position: absolute;
+  white-space: nowrap;
+  width: 1px;
+}
+
+@keyframes fadeIn {
+  0% {
+    opacity: 0;
+  }
+  50% {
+    opacity: 0.5s;
+  }
+  100% {
+    opacity: 1;
+  }
+}
+@keyframes fadeOut {
+  0% {
+    opacity: 1;
+  }
+  50% {
+    opacity: 0.5s;
+  }
+  100% {
+    opacity: 0;
+  }
+}
+
+/* Modal Override */
+.ReactModal__Overlay {
+  display: grid;
+  place-content: center;
+}
+
+.Modal__header {
+  position: absolute;
+  top: 16px;
+  right: 16px;
+}
+.Modal-form {
+  padding-top: 48px;
+}
+.Modal-loading {
+  position: absolute;
+  width: 100%;
+  height: 100%;
+  top: 0;
+  left: 0;
+  display: grid;
+  place-content: center;
+  background-color: rgba(255,255,255,0.9);
+}
+
+.Modal__loading {
+  display: block;
+  position: relative;
+  width: 100px;
+  height: 100px;
+}
+
+.Modal__loading:before , .Modal__loading:after{
+  content: '';
+  border-radius: 50%;
+  position: absolute;
+  inset: 0;
+  box-shadow: 0 0 10px 2px rgba(0, 0, 0, 0.3) inset;
+}
+.Modal__loading:after {
+  box-shadow: 0 2px 0 #1353a7 inset;
+  animation: rotate 2s linear infinite;
+}
+
+@keyframes rotate {
+  0% {  transform: rotate(0)}
+  100% { transform: rotate(360deg)}
+}

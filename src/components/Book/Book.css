@@ -1,0 +1,112 @@
+.Book {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    padding: 16px;
+    background-color: white;
+    margin-bottom: 24px;
+    border: 1px solid #dadce0;
+    border-left:6px solid #5aa469;
+    border-radius: 8px;
+    color: #202124;
+}
+.Book:hover,.Book:focus {
+    cursor: pointer;
+    transform: translateY(-1px);
+    box-shadow: 0 1px 2px 0 rgb(60 64 67 / 30%), 0 2px 6px 2px rgb(60 64 67 / 15%);
+}
+.Book--non-available {
+    border-left-color: #D35D6E;
+}
+.Book--last-units {
+    border-left-color: #F8D49D;
+}
+.Book__cover {
+    width: 75px;
+}
+.Book__title {
+    padding: 8px;
+    min-width: 300px;
+}
+.Book__title small{
+    font-weight: 400;
+}
+.Book__isbn {
+    padding: 8px;
+    color: rgb(165, 165, 165);
+    text-align: center;
+    width: 130px;
+}
+.Book__isbn strong{ 
+    display: block;
+    color: #000;
+}
+
+.Book__status {
+    align-items: center;
+    padding: 8px;
+    display: flex;
+    flex-direction: row;
+    font-size: 14px;
+}
+
+.Book__counts {
+    display: flex;
+    align-items: center;
+    justify-content: space-around;
+    width: 50px;
+    height: 50px;
+    font-size: 20px;
+    font-weight: bold;
+    color: white;
+    background-color: #213c60;
+    border-radius: 9999em;
+}
+.Book__status::before {
+    content: '';
+    display: inline-block;
+    width: 10px;
+    height: 10px;
+    border-radius: 50%;
+    box-shadow: 0 4px 16px rgb(0 0 0 / 8%);
+    margin-right: 8px;
+    background-color: #5AA469;
+}
+.Book--non-available .Book__status::before {
+    background-color: #D35D6E;
+}
+.Book--last-units .Book__status::before {
+    background-color: #F8D49D;
+}
+.Book--last-units-available {
+    border-color: #F8D49D
+}
+
+.Book__cta {
+    width: 100%;
+}
+
+.Book__paragraph {
+    margin: 32px 0 16px;
+    text-align: left;
+}
+
+.Book__description {
+    height: 120px;
+}
+
+@media all and (min-width: 768px) {
+    .Book {
+        flex-direction: row;
+        justify-content: space-between;
+    }
+}
+
+@keyframes loading {
+  0% {
+    transform: translate(-50%, -50%) rotate(0deg);
+  }
+  100% {
+    transform: translate(-50%, -50%) rotate(360deg);
+  }
+}

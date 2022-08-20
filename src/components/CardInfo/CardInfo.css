@@ -1,0 +1,39 @@
+.Card {
+    background-color: white;
+    border: 1px solid #00000010;
+    padding: 16px;
+    display: flex;
+    flex-direction: column;
+    justify-content: space-between;
+    align-items: baseline;
+}
+
+.Card__title {
+    font-size: 24px;
+    color: #1f1f1f;
+}
+
+.Tag {
+    padding: 16px;
+    border-radius: 9999em;
+    display: inline-block;
+    margin: 4px;
+    align-self: flex-end;
+}
+
+.Tag__success {
+    color: #4caf50;
+    background-color: #e8f5e9;
+}
+.Tag__alert {
+    color: #f44336;
+    background-color: #ffebee;
+}
+.Tag__info {
+    color: #2196f3;
+    background-color: #e3f2fd;
+}
+.Tag__warning {
+    color: #f57c00;
+    background-color: #fff3e0;
+}

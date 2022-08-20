@@ -1,0 +1,40 @@
+.Books__input-container {
+    display: block;
+    margin-bottom: 16px;
+    text-align: left;
+    width: 100%;
+}
+.Books__input {
+    border: 1px solid #b0b9c1;
+    border-radius: 6px;
+    font-size: 12px;
+    margin: 0;
+    padding: 12px;
+}
+.Books__input--error {
+    border-color: #d35d6e;
+    border-width: 1px;
+    padding: 12px;
+}
+.Books__input-layer {
+    display: block;
+    font-size: 14px;
+    font-weight: 700;
+    margin-bottom: 8px;
+}
+.Books__input-layer--error {
+    color: #d35d6e;
+}
+.Books__input-help {
+    color: #6c5070;
+    display: block;
+    font-size: 12px;
+    margin-top: 4px;
+}
+.Books__input-error {
+    color: #d35d6e;
+    display: block;
+    font-size: 12px;
+    font-weight: 700;
+    margin-top: 4px;
+}

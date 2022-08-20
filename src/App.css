@@ -1,0 +1,18 @@
+.App__title {
+    text-align: center;
+}
+.Main {
+    padding-top: 60px;
+    padding-left: 165px;
+    transition: all 0.2s ease;
+    height: 100vh;
+}
+
+.is-collapse .Main {
+    padding-left: 70px
+}
+
+/* Toastify button override */
+.Toastify__close-button {
+    flex: 1
+}
