@@ -61,7 +61,7 @@ export default function BooksPage() {
     onSubmit: values => {
       // TODO: Aquí me he quedado. Tengo que guardar el libro que hayamos metido
       const { isbn } = values;
-      strapi.getBooksAvaliabilityByISBN(isbn)
+      strapi.getBooksAvailabilityByISBN(isbn)
       .then(response => {
         console.log(response)
       })
@@ -105,7 +105,7 @@ export default function BooksPage() {
 
   useEffect(() => {
     clearForm();
-    strapi.getBooksAvaliabilityByISBN().then(res => setBooks(res.data))
+    strapi.getBooksAvailabilityByISBN().then(res => setBooks(res.data))
   }, []);
 
 

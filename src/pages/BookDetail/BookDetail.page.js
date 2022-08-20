@@ -1,6 +1,6 @@
 import './BookDetail.page.css'
 import React, { useState } from 'react';
-import { getBooksAvaliabilityByISBN, putBook, deleteBook } from '../../api/books.api';
+import { getBooksAvailabilityByISBN, putBook, deleteBook } from '../../api/books.api';
 import { useEffect } from 'react';
 import { useNavigate, useParams } from 'react-router-dom';
 import BooksInput from '../Books/BooksInput/BooksInput';
@@ -37,7 +37,7 @@ export default function BookDetailPage() {
   const { isbn } = useParams();
 
   useEffect(() => {
-    getBooksAvaliabilityByISBN(isbn)
+    getBooksAvailabilityByISBN(isbn)
       .then(res => {
         if (res.data.length === 0) {
           alert('El libro no existe en la base de datos');

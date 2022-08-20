@@ -35,7 +35,7 @@ const AuthProvider = ({ children }) => {
   const signin = ({ identifier, password }) => {
     const data = { identifier, password };
   
-    return axios.post(`${config.strapi.path}/auth/local`, data)
+    return axios.post(`${config.strapi.production}/auth/local`, data)
       .then(({data}) => {
         setUser(data.user);
         setToken(data.jwt);
