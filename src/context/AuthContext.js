@@ -2,7 +2,6 @@ import React, { useEffect, useState } from "react"
 import axios from 'axios'
 import { config } from "../config/config";
 import { useNavigate } from "react-router-dom";
-import headers from '../../../agora-backend/.cache/admin/src/components/Users/List/utils/headers';
 
 
 let AuthContext = React.createContext();
@@ -36,11 +35,12 @@ const AuthProvider = ({ children }) => {
   const signin = ({ identifier, password }) => {
     const data = { identifier, password };
   
-    return axios.post(`${config.strapi.production}/auth/local`,{
+    const configHeaders =  {
       headers: {
         'Access-Control-Allow-Origin': '*',
       }
-    }, data)
+    }
+    return axios.post(`${config.strapi.production}/auth/local`, data, configHeaders)
       .then(({data}) => {
         setUser(data.user);
         setToken(data.jwt);
