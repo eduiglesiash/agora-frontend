@@ -13,17 +13,17 @@ const AuthProvider = ({ children }) => {
   const userStorage = 'agora-user';
   const tokenStorage = 'agora-jwt';
 
-  const getUserSessionStorage = ()=>{
+  const getUserSessionStorage = () => {
     const user = sessionStorage.getItem(userStorage);
     const token = sessionStorage.getItem(tokenStorage);
     if (user) setUser(JSON.parse(user));
     if (token) setToken(JSON.parse(token));
   }
-  const setUserLocalStorage = ({user, token})=>{
+  const setUserLocalStorage = ({ user, token }) => {
     sessionStorage.setItem(userStorage, JSON.stringify(user));
     sessionStorage.setItem(tokenStorage, JSON.stringify(token));
   }
-  const deleteUserSessionStorage = ()=>{
+  const deleteUserSessionStorage = () => {
     sessionStorage.removeItem(userStorage)
     sessionStorage.removeItem(tokenStorage)
   }
@@ -34,14 +34,11 @@ const AuthProvider = ({ children }) => {
 
   const signin = ({ identifier, password }) => {
     const data = { identifier, password };
-  
-    const configHeaders =  {
-      headers: {
-        'Access-Control-Allow-Origin': 'https://strapi.matadealcantara.com',
-      }
-    }
-    return axios.post(`${config.strapi.production}/auth/local`, data, configHeaders)
-      .then(({data}) => {
+
+    const configHeaders = {}
+
+    return axios.post(`${config.strapi.production}:1337/auth/local`, data, configHeaders)
+      .then(({ data }) => {
         setUser(data.user);
         setToken(data.jwt);
         setUserLocalStorage({
