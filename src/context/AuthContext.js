@@ -37,7 +37,7 @@ const AuthProvider = ({ children }) => {
   
     const configHeaders =  {
       headers: {
-        'Access-Control-Allow-Origin': '*',
+        'Access-Control-Allow-Origin': 'https://strapi.matadealcantara.com',
       }
     }
     return axios.post(`${config.strapi.production}/auth/local`, data, configHeaders)
