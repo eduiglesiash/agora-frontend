@@ -37,7 +37,7 @@ const AuthProvider = ({ children }) => {
 
     const configHeaders = {}
 
-    return axios.post(`${config.strapi.production}:1337/auth/local`, data, configHeaders)
+    return axios.post(`${config.strapi.production}/auth/local`, data, configHeaders)
       .then(({ data }) => {
         setUser(data.user);
         setToken(data.jwt);
