@@ -42,25 +42,25 @@ export default function UsersPage() {
     console.log(`AfterOpenModal`)
   }
 
-  const auth = useAuth();
+  const { token } = useAuth();
 
   useEffect(() => {
-    auth.token && strapi.getUsers(auth.token)
+    token && strapi.getUsers(token)
       .then(users => {
         setUsers(users.data);
       })
       .catch(err => toast.error(`${config.toastMessage.getUsersError}: \n ${err}`));
-  }, [auth, modalIsOpen]);
+  }, [token, modalIsOpen]);
 
   const registerUser = useFormik({
     initialValues,
     onSubmit: values => {
-      const isUserRegistred = users.find(user => values.phone === Number(user.phone));
-      console.log({ isUserRegistred })
+      const isUserRegistered = users.find(user => values.phone === Number(user.phone));
+      console.log({ isUserRegistered: isUserRegistered })
       console.log({ values })
-      if (!isUserRegistred || values.isMinor === 'true') {
+      if (!isUserRegistered || values.isMinor === 'true') {
         const codeUser = nanoid();
-        strapi.addUser({ ...values, codeUser, 'totalBookRead': 0 })
+        token && strapi.addUser({ ...values, codeUser, 'totalBookRead': 0 }, token)
           .then(user => {
             setUsers([...users, user.data]);
             toast.success(config.toastMessage.userRegisterSuccess);
