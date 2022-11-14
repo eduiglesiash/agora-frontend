@@ -19,7 +19,7 @@ export default function CardUser({ codeUser, email, name, phone, surname, totalB
     console.log(`AfterOpenModal`)
   }
 
-  
+
   return (
     <article className="Card__users a-fade-in">
       <Avatar thumbnail={avatar} />
@@ -30,12 +30,12 @@ export default function CardUser({ codeUser, email, name, phone, surname, totalB
       </div>
       <div className="a-flex a-flex-column a-flex-align-self-center">
         <p>Libros totales: {totalBookRead}</p>
-        <p>Libros prestados: 2</p>
+        <p>Libros prestados: XXX</p>
       </div>
       <div className="a-flex-align-self-center a-flex-align-self-center">
         <h4>Próximo vencimiento: </h4>
         <ul>
-          <li>4/OCT/2021</li>
+          <li>XX/XX/XXXX</li>
         </ul>
       </div>
       <div className="a-flex-align-self-center a-flex a-flex-center">

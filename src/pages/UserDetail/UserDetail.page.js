@@ -1,7 +1,7 @@
 import './UserDetail.page.css';
 import { useState, useEffect } from 'react';
+import { useAuth } from '../../hooks/useAuth';
 import Avatar from '../../components/Avatar/Avatar';
-import Book from '../../components/Book/Book';
 import * as strapi from '../../api/users.api';
 import Modal from 'react-modal';
 import { VscChromeClose } from 'react-icons/vsc';
@@ -28,12 +28,13 @@ export default function UserDetailPage() {
   const [formModified, setFormModified] = useState(false)
   const [modalIsOpen, setIsOpen] = useState(false);
   const navigation = useNavigate();
+  const { token } = useAuth();
   const openModal = () => setIsOpen(true);
   const closeModal = () => setIsOpen(false);
   let { id } = useParams();
 
   const getUserId = () => {
-    strapi.getUserByID(id)
+    token && strapi.getUserByID(id, token)
       .then(user => {
         const { name, surname, phone, email } = user.data
         setUser(user.data);
@@ -58,7 +59,7 @@ export default function UserDetailPage() {
     },
     onSubmit: () => {
       console.log(`On Submit`);
-      strapi.deleteUser(user.id)
+      token && strapi.deleteUser(user.id, token)
         .then(() => {
           // console.log({ user })
           navigation(config.paths.users);
@@ -90,12 +91,14 @@ export default function UserDetailPage() {
       return errors;
     },
     onSubmit: values => {
-      strapi.updateUser({ ...user, ...values })
+      token && strapi.updateUser({ ...user, ...values }, token)
         .then(userUpdated => {
           setUser(userUpdated.data);
           toast.info(`${config.toastMessage.userUpdateSuccess}`)
         })
         .catch(err => toast.error(`${config.toastMessage.userUpdateError}\n ${err}`));
+
+      setFormModified(false)
     },
     onReset: () => {
       getUserId()
@@ -149,7 +152,7 @@ export default function UserDetailPage() {
             }
           </form>
         </section>
-        <section className="a-p-16">
+        {/* <section className="a-p-16">
           <ul className="Upd__table">
             <li>
               <p>112132342-M</p>
@@ -168,7 +171,7 @@ export default function UserDetailPage() {
         <section className="a-p-16">
           <h2>Libros leídos</h2>
           <Book />
-        </section>
+        </section> */}
       </section>
       <section className="Upd__warning-zone a-flex a-flex-column a-flex-center a-margin-bottom-16">
         <h2 className="a-red a-text-center a-margin-bottom-16">Zona peligrosa</h2>

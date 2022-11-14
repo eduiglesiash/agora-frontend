@@ -73,6 +73,7 @@ export default function UsersPage() {
           position: toast.POSITION.TOP_CENTER
         });
       }
+      closeModal()
     },
     onReset: () => {
       console.log('Reset form');

@@ -13,6 +13,7 @@ import BooksTextarea from './BooksTextarea/BooksTextarea';
 import Modal from 'react-modal'
 import { genericStylesModal } from '../../utils/customStylesModals';
 import { useFormik } from 'formik';
+import { useAuth } from '../../hooks/useAuth';
 
 
 Modal.setAppElement('#root')
@@ -44,6 +45,9 @@ export default function BooksPage() {
   const [books, setBooks] = useState([])
   const [modalIsOpen, setIsOpen] = useState(false);
   const [loadingForm, setLoadingForm] = useState(false);
+
+  const { token } = useAuth()
+
   const openModal = () => setIsOpen(true);
   const closeModal = () => setIsOpen(false);
   const afterOpenModal = () => {
@@ -61,10 +65,28 @@ export default function BooksPage() {
     onSubmit: values => {
       // TODO: Aquí me he quedado. Tengo que guardar el libro que hayamos metido
       const { isbn } = values;
-      strapi.getBooksAvailabilityByISBN(isbn)
-      .then(response => {
-        console.log(response)
-      })
+      // Comprobar si el libro ya existe en la BBDD. 
+      // if (isFormCorrect()) {
+      const filter = {
+        isbn: formBooksValues.isbn,
+      };
+      token && strapi.findBooks(new URLSearchParams(filter).toString(), token)
+        .then(res => {
+          if (res.data.length > 0) {
+            alert('El libro ya está guardado en la base de datos');
+            return false;
+          }
+          token && strapi.createBook({ ...formBooksValues, available: formBooksValues.quantity > 0 }, token)
+            .then(res => {
+              if (res.status === 200)
+                closeModal();
+            })
+            .catch(err => console.error(err));
+        })
+        .catch(err => console.error(err));
+      // }
+      // Si existe lanzamos mensaje de aviso
+      // Si no existe lo guardamos directamente en la BBDD
 
     },
     onReset: () => { }
@@ -148,57 +170,31 @@ export default function BooksPage() {
   //     });
   // }
 
-  // const isFormCorrect = () => {
-  //   let error = false;
-  //   let obj = {
-  //     isbn: '',
-  //     title: '',
-  //     author: '',
-  //     categories: '',
-  //     description: '',
-  //     quantity: '',
-  //   };
-  //   if (formBooksValues.isbn === '') {
-  //     error = true;
-  //     obj = { ...obj, isbn: 'El ISBN es obligatorio' };
-  //   }
-  //   if (formBooksValues.title === '') {
-  //     error = true;
-  //     obj = { ...obj, title: 'El título es obligatorio' };
-  //   }
-  //   if (formBooksValues.quantity === undefined || formBooksValues.quantity === '') {
-  //     error = true;
-  //     obj = { ...obj, quantity: 'Es obligatorio introducir el número de libros que se disponen' };
-  //   }
-  //   formErrors.setFormErrors(obj);
-  //   return !error;
-  // }
-
-  // const onSubmit = () => {
-  //   if (isFormCorrect()) {
-  //     const filter = {
-  //       isbn: formBooksValues.isbn,
-  //     };
-  //     strapi.findBooks(new URLSearchParams(filter).toString())
-  //       .then(res => {
-  //         if (res.data.length > 0) {
-  //           alert('El libro ya está guardado en la base de datos');
-  //           return false;
-  //         }
-  //         saveBook();
-  //       })
-  //       .catch(err => console.error(err));
-  //   }
-  // }
-
-  // const saveBook = () => {
-  //   strapi.createBook({ ...formBooksValues, available: formBooksValues.quantity > 0 })
-  //     .then(res => {
-  //       if (res.status === 200)
-  //         closeModal();
-  //     })
-  //     .catch(err => console.error(err));
-  // }
+  const isFormCorrect = () => {
+    let error = false;
+    let obj = {
+      isbn: '',
+      title: '',
+      author: '',
+      categories: '',
+      description: '',
+      quantity: '',
+    };
+    if (formBooksValues.isbn === '') {
+      error = true;
+      obj = { ...obj, isbn: 'El ISBN es obligatorio' };
+    }
+    if (formBooksValues.title === '') {
+      error = true;
+      obj = { ...obj, title: 'El título es obligatorio' };
+    }
+    if (formBooksValues.quantity === undefined || formBooksValues.quantity === '') {
+      error = true;
+      obj = { ...obj, quantity: 'Es obligatorio introducir el número de libros que se disponen' };
+    }
+    formErrors.setErrors(obj);
+    return !error;
+  }
 
   return (
     <section className="a-p-16 a-flex a-flex-column">
