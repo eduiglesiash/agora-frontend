@@ -13,7 +13,7 @@ export default function Input(params) {
     error } = params
 
   const classnames = `Books__input ${classes || ''} ${error !== undefined && error !== '' ? 'Books__input--error' : ''}`;
-  console.log({error})
+  // console.log({error})
   return (
     <div className='Books__input-container'>
       <span className={error !== undefined && error !== '' ? 'Books__input-layer Books__input-layer--error' : 'Books__input-layer'}>{layer}</span>
@@ -30,7 +30,7 @@ export default function Input(params) {
         helpText && (<p className='Books__input-help'>{helpText}</p>)
       }
       {
-       // error !== undefined && error !== '' && (<span className='Books__input-error'>{error}</span>)
+        // error !== undefined && error !== '' && (<span className='Books__input-error'>{error}</span>)
       }
     </div>
   )

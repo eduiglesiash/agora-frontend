@@ -49,58 +49,25 @@ export default function BooksPage() {
   const { token } = useAuth()
 
   const openModal = () => setIsOpen(true);
-  const closeModal = () => setIsOpen(false);
+  const closeModal = () => {
+    setIsOpen(false)
+    resetForm()
+  };
   const afterOpenModal = () => {
     // references are now sync'd and can be accessed.
     console.log(`AfterOpenModal`)
   }
-
-
-  const formBooksValues = useFormik({
-    initialValues: intiValuesFormBooks,
-    validate: values => {
-      const errors = '';
-      return errors
-    },
-    onSubmit: values => {
-      // TODO: Aquí me he quedado. Tengo que guardar el libro que hayamos metido
-      const { isbn } = values;
-      // Comprobar si el libro ya existe en la BBDD. 
-      // if (isFormCorrect()) {
-      const filter = {
-        isbn: formBooksValues.isbn,
-      };
-      token && strapi.findBooks(new URLSearchParams(filter).toString(), token)
-        .then(res => {
-          if (res.data.length > 0) {
-            alert('El libro ya está guardado en la base de datos');
-            return false;
-          }
-          token && strapi.createBook({ ...formBooksValues, available: formBooksValues.quantity > 0 }, token)
-            .then(res => {
-              if (res.status === 200)
-                closeModal();
-            })
-            .catch(err => console.error(err));
-        })
-        .catch(err => console.error(err));
-      // }
-      // Si existe lanzamos mensaje de aviso
-      // Si no existe lo guardamos directamente en la BBDD
-
-    },
-    onReset: () => { }
-  })
+  const resetForm = () => {
+    formBooksValues.resetForm(intiValuesFormBooks);
+  }
 
   const formISBNValues = useFormik({
     initialValues: intiValueISBN,
     onSubmit: values => {
-      clearForm();
       setLoadingForm(true);
       strapi.getBookByISBNFromGoogle(values.isbn)
         .then((response) => {
           const { items } = response.data;
-
           if (items) {
             return updateFormData({ bookInfo: { ...items[0], isbn: values.isbn } })
           } else {
@@ -114,6 +81,55 @@ export default function BooksPage() {
     validate: () => { }
   })
 
+  const formBooksValues = useFormik({
+    initialValues: intiValuesFormBooks,
+    validate: values => {
+      const errors = '';
+      return errors
+    },
+    onSubmit: values => {
+      const { isbn } = values;
+
+      const filter = { isbn };
+      // Comprobar si el libro ya existe en la BBDD. 
+      token && strapi.findBooks(new URLSearchParams(filter).toString(), token)
+        .then(res => {
+          if (res.data.length > 0) {
+            // Si ya existe devolvemos un mensaje cerramos la modal
+            toast.info(config.toastMessage.bookExist);
+            closeModal();
+            return false;
+          }
+          // Si no existe lo creamos. 
+          token && strapi.createBook({ ...formBooksValues.values, available: formBooksValues.values.quantity > 0 }, token)
+            .then(res => {
+              if (res.status === 200) {
+                toast.done(config.toastMessage.bookCreated);
+                strapi.getBooksAvailabilityByISBN().then(res => setBooks(res.data))
+              }
+              closeModal();
+            })
+            .catch(err => {
+              toast.error(config.toastMessage.bookCreatedError)
+              console.error(err)
+              closeModal();
+            });
+        })
+        .catch(err => {
+          toast.error(config.toastMessage.bookFindError)
+          console.error(err)
+          closeModal();
+        });
+      // }
+      // Si existe lanzamos mensaje de aviso
+      // Si no existe lo guardamos directamente en la BBDD
+
+    },
+    onReset: () => { }
+  })
+
+
+
   const formErrors = useFormik({
     initialValues: initialValuesError,
     onSubmit: values => { },
@@ -121,12 +137,7 @@ export default function BooksPage() {
   })
 
 
-  const clearForm = () => {
-    console.log(`clearForm`)
-  };
-
   useEffect(() => {
-    clearForm();
     strapi.getBooksAvailabilityByISBN().then(res => setBooks(res.data))
   }, []);
 
@@ -157,45 +168,6 @@ export default function BooksPage() {
     setLoadingForm(false);
   }
 
-  // const searchIsbn = () => {
-  //   clearForm();
-  //   setLoadingForm(true);
-  //   strapi.getBookByISBN(formBooksValues.isbn)
-  //     .then((res) => {
-  //       if (res.data.totalItems === 0) {
-  //         setLoadingForm(false);
-  //         return alert('ISBN NO ENCONTRADO, INTRODUCIR LOS DATOS EN EL FORMULARIO');
-  //       }
-  //       return updateFormData({ res: res.data.items[0] })
-  //     });
-  // }
-
-  const isFormCorrect = () => {
-    let error = false;
-    let obj = {
-      isbn: '',
-      title: '',
-      author: '',
-      categories: '',
-      description: '',
-      quantity: '',
-    };
-    if (formBooksValues.isbn === '') {
-      error = true;
-      obj = { ...obj, isbn: 'El ISBN es obligatorio' };
-    }
-    if (formBooksValues.title === '') {
-      error = true;
-      obj = { ...obj, title: 'El título es obligatorio' };
-    }
-    if (formBooksValues.quantity === undefined || formBooksValues.quantity === '') {
-      error = true;
-      obj = { ...obj, quantity: 'Es obligatorio introducir el número de libros que se disponen' };
-    }
-    formErrors.setErrors(obj);
-    return !error;
-  }
-
   return (
     <section className="a-p-16 a-flex a-flex-column">
       {
@@ -219,7 +191,7 @@ export default function BooksPage() {
         contentLabel="Añadir un nuevo libro"
       >
         <header className="Modal__header">
-          <button className="a-btn__icon" onClick={() => { closeModal(); clearForm() }}>
+          <button className="a-btn__icon" onClick={() => { closeModal() }}>
             <VscChromeClose size="34px" />
             <span className="sr-only">Cerrar ventana de dialogo </span>
           </button>
@@ -246,7 +218,7 @@ export default function BooksPage() {
             value={formBooksValues.values.title}
             placeholder='Título del libro'
             onChange={formBooksValues.handleChange}
-            error={formErrors.title}
+            error={formErrors.values.title}
           />
           <BooksInput
             id='author'
@@ -257,7 +229,7 @@ export default function BooksPage() {
             placeholder='Autor del libro'
             helpText='Si hay varios autores, separar por comas'
             onChange={formBooksValues.handleChange}
-            error={formErrors.author}
+            error={formErrors.values.author}
           />
           <BooksInput
             id='imgURL'
@@ -278,7 +250,7 @@ export default function BooksPage() {
             placeholder='Categorías a las que pertenece el libro'
             helpText='Si hay varias categorías, separar por comas'
             onChange={formBooksValues.handleChange}
-            error={formErrors.categories}
+            error={formErrors.values.categories}
           />
           <BooksTextarea
             id='description'
@@ -288,7 +260,7 @@ export default function BooksPage() {
             value={formBooksValues.values.description}
             placeholder='Descripción del libro'
             onChange={formBooksValues.handleChange}
-            error={formErrors.description}
+            error={formErrors.values.description}
           />
           <BooksInput
             id='quantity'
@@ -298,7 +270,7 @@ export default function BooksPage() {
             value={formBooksValues.values.quantity}
             placeholder='Cantidad de libros'
             onChange={formBooksValues.handleChange}
-            error={formErrors.quantity}
+            error={formErrors.values.quantity}
           />
           <button className='a-btn__action' type='submit'>Guardar libro</button>
           {

@@ -250,11 +250,12 @@ textarea {
   color: #5aa469;
 }
 
-.a-cta--disabled {
+.a-cta--disabled,
+.a-cta--disabled:hover {
   background-color: #202124;
   border-color: #202124;
   color: #ffffff;
-  pointer-events: none;
+  /* pointer-events: none; */
 }
 
 .a-cta--blue {
@@ -517,7 +518,7 @@ textarea {
   left: 0;
   display: grid;
   place-content: center;
-  background-color: rgba(255,255,255,0.9);
+  background-color: rgba(255, 255, 255, 0.9);
 }
 
 .Modal__loading {
@@ -527,8 +528,9 @@ textarea {
   height: 100px;
 }
 
-.Modal__loading:before , .Modal__loading:after{
-  content: '';
+.Modal__loading:before,
+.Modal__loading:after {
+  content: "";
   border-radius: 50%;
   position: absolute;
   inset: 0;
@@ -540,6 +542,10 @@ textarea {
 }
 
 @keyframes rotate {
-  0% {  transform: rotate(0)}
-  100% { transform: rotate(360deg)}
+  0% {
+    transform: rotate(0);
+  }
+  100% {
+    transform: rotate(360deg);
+  }
 }

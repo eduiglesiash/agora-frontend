@@ -36,6 +36,19 @@ export const config = {
     loginError: `Usuario y/o contraseña incorrectos \n`,
     loginSuccess: `Usuario logado correctamente \n`,
     loginLogout: `Se ha cerrado la sesión correctamente \n`,
-    ISBNNotFound: `ISBN no encontrado, introduce los datos en el formulario\n`
+    ISBNNotFound: `ISBN no encontrado, introduce los datos en el formulario\n`,
+    bookExist: `El libro ya está guardado en la base de datos\n`,
+    bookCreated: `Libro añadido a la base de datos\n`,
+    bookFindError: `No hemos podido buscar en libro en la BBDD, por favor, prueba de nuevo\n`,
+    bookCreatedError: `No se ha podido guardar el libro en la base de datos\n`,
+    bookDeleteError: `No se ha podido borrar el libro, por favor, inténtalo de nuevo\n`,
+    bookNotExist: `El libro no existe en la base de datos\n`,
+    bookQuantityUpdated: `La cantidad del libro se ha actualizado correctamente\n`,
+    bookAvailabilityByISBN: `No se ha podido recuperar la disponibilidad del libro a través del ISBN\n`,
+    bookUpdateQuantityError: `No se ha podido actualizar la cantidad de libros de la biblioteca\n`,
+    bookBorrowOK: `El libro se ha prestado correctamente\n`,
+    bookBorrowError: `No se ha podido prestar el libro correctamente \n`,
+    borrowBookDeletedOK: `El Libro se ha devuelto correctamente\n`,
+    borrowBookDeletedError: `El libro no se ha podido devolver 🤷‍♂️ \n`
   }
 };
