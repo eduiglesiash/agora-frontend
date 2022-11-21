@@ -1,5 +1,6 @@
 export const config = {
   paths: {
+    tempPage: '/temp-page',
     root: '/',
     dashboard: '/',
     books: '/books',
